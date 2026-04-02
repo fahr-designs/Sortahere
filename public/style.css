@@ -1,0 +1,25 @@
+:root {
+  --color-bg:      #f5f0e8;  /* warm parchment */
+  --color-card:    #fffdf7;  /* soft cream */
+  --color-primary: #5c7a4e;  /* forest green */
+  --color-accent:  #c17f3a;  /* acorn amber */
+  --color-text:    #3b2f2f;  /* dark bark */
+}
+
+body {
+  background-color: var(--color-primary);
+  font-family: 'Lato', sans-serif;
+  color: var(--color-text);
+}
+
+h1, h2, h3 { font-family: 'Playfair Display', serif; }
+
+.btn-primary {
+  background-color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.card {
+  background-color: var(--color-card);
+  border: 1px solid #ddd5c0;
+}
