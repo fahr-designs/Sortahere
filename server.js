@@ -41,3 +41,36 @@ const rsvpLimiter = rateLimit({
   message:  { error: 'Too many submissions. Please try again shortly.' }
 });
 
+// POST /rsvp endpoint
+app.post('/rsvp', rsvpLimiter, (req, res) => {
+  const { name, attending, guest_count, dietary, message } = req.body;
+
+  if (!name || typeof name !== 'string' || name.trim().length === 0 || name.length > 100)
+    return res.status(400).json({ error: 'Please enter a valid name.' });
+
+  if (attending !== 0 && attending !== 1)
+    return res.status(400).json({ error: 'Please select attendance.' });
+
+  const guestCount = attending === 0 ? 0 : (parseInt(guest_count) || 0);
+  if (guestCount < 0 || guestCount > 10)
+    return res.status(400).json({ error: 'Guest count must be between 0 and 10.' });
+
+  if (dietary && dietary.length > 300)
+    return res.status(400).json({ error: 'Dietary notes too long.' });
+
+  if (message && message.length > 500)
+    return res.status(400).json({ error: 'Message too long.' });
+
+  try {
+    const stmt = db.prepare(`
+      INSERT INTO rsvps (name, attending, guest_count, dietary, message)
+      VALUES (?, ?, ?, ?, ?)
+    `);
+    stmt.run(name.trim(), attending, guestCount, dietary || null, message || null);
+    return res.status(201).json({ success: true });
+  } catch (err) {
+    console.error('DB error:', err);
+    return res.status(500).json({ error: 'Something went wrong. Please try again.' });
+  }
+});
+
