@@ -74,3 +74,34 @@ app.post('/rsvp', rsvpLimiter, (req, res) => {
   }
 });
 
+// POST /admin/send-invites endpoint
+app.post('/admin/send-invites', async (req, res) => {
+  const token = req.headers['authorization'];
+  if (token !== process.env.ADMIN_TOKEN)
+    return res.status(401).json({ error: 'Unauthorized' });
+
+  const guests  = JSON.parse(fs.readFileSync('./guests.json', 'utf8'));
+  const template = require('./email-template');
+  const results  = { sent: [], failed: [] };
+
+  for (const email of guests) {
+    try {
+      await resend.emails.send({
+        from:    process.env.INVITE_FROM_EMAIL,
+        to:      email,
+        subject: template.subject,
+        html:    template.html(process.env.RSVP_URL)
+      });
+      results.sent.push(email);
+    } catch (err) {
+      results.failed.push({ email, error: err.message });
+    }
+  }
+
+  return res.status(200).json(results);
+});
+
+// Start server
+app.listen(PORT, () => {
+  console.log(`RSVP app running on port ${PORT}`);
+});
