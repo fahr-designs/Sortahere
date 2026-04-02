@@ -29,3 +29,15 @@ db.exec(`
   )
 `);
 
+// Express middleware
+const app = express();
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Rate limiter
+const rsvpLimiter = rateLimit({
+  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS) || 60000,
+  max:      parseInt(process.env.RATE_LIMIT_MAX) || 5,
+  message:  { error: 'Too many submissions. Please try again shortly.' }
+});
+
