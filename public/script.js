@@ -1,53 +1,78 @@
-document.getElementById('rsvp-form').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const btn = document.getElementById('submit-btn');
-  btn.disabled = true;
-  btn.innerHTML = '<span class="spinner-border spinner-border-sm"></span> Sending...';
+ form = document.getElementById('rsvp-form');
+const submitButton = document.getElementById('submit-btn');
+const errorAlert = document.getElementById('error-alert');
+const successMessage = document.getElementById('success-message');
+const guestCountRow = document.getElementById('guest-count-row');
+const guestCountInput = document.getElementById('guest_count');
+const attendanceRadios = document.querySelectorAll('input[name="attending"]');
 
-  const data = {
-    name:        document.getElementById('name').value,
-    attending:   parseInt(document.querySelector('[name=attending]:checked').value),
-    guest_count: parseInt(document.getElementById('guest_count').value) || 0,
-    dietary:     document.getElementById('dietary').value,
-    message:     document.getElementById('message').value,
-  };
-
-  try {
-    const res  = await fetch('/rsvp', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    const json = await res.json();
-
-    if (res.status === 201) {
-      document.getElementById('rsvp-form').classList.add('d-none');
-      document.getElementById('success-message').classList.remove('d-none');
-    } else {
-      const alert = document.getElementById('error-alert');
-      alert.textContent = json.error || 'Something went wrong.';
-      alert.classList.remove('d-none');
-      btn.disabled = false;
-      btn.textContent = 'Send RSVP';
-    }
-  } catch {
-    const alert = document.getElementById('error-alert');
-    alert.textContent = 'Network error. Please check your connection and try again.';
-    alert.classList.remove('d-none');
-    btn.disabled = false;
-    btn.textContent = 'Send RSVP';
-  }
-});
-
-// Guest count visibility logic
-document.querySelectorAll('[name=attending]').forEach(radio => {
+attendanceRadios.forEach((radio) => {
   radio.addEventListener('change', () => {
-    const guestRow = document.getElementById('guest-count-row');
-    if (radio.value === '0') {
-      guestRow.classList.add('d-none');
-      document.getElementById('guest_count').value = 0;
+    const selectedValue = document.querySelector('input[name="attending"]:checked')?.value;
+
+    if (selectedValue === '0') {
+      guestCountRow.classList.add('d-none');
+      guestCountInput.value = 0;
     } else {
-      guestRow.classList.remove('d-none');
+      guestCountRow.classList.remove('d-none');
+
+      if (guestCountInput.value === '0') {
+        guestCountInput.value = 1;
+      }
     }
   });
+});
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+
+  errorAlert.classList.add('d-none');
+  errorAlert.textContent = '';
+
+  const selectedAttendance = document.querySelector('input[name="attending"]:checked');
+
+  if (!selectedAttendance) {
+    errorAlert.textContent = 'Please select whether you will be attending.';
+    errorAlert.classList.remove('d-none');
+    return;
+  }
+
+  const payload = {
+    name: document.getElementById('name').value.trim(),
+    attending: parseInt(selectedAttendance.value, 10),
+    message: document.getElementById('message').value.trim()
+  };
+
+  submitButton.disabled = true;
+  submitButton.innerHTML = `
+    <span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+    Sending RSVP...
+  `;
+
+  try {
+    const response = await fetch('/rsvp', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    });
+
+    const data = await response.json();
+
+    if (response.status === 201) {
+      form.classList.add('d-none');
+      successMessage.classList.remove('d-none');
+      return;
+    }
+
+    errorAlert.textContent = data.error || 'Something went wrong. Please try again.';
+    errorAlert.classList.remove('d-none');
+  } catch (error) {
+    errorAlert.textContent = 'Network error. Please check your connection and try again.';
+    errorAlert.classList.remove('d-none');
+  }
+
+  submitButton.disabled = false;
+  submitButton.textContent = 'Send RSVP';
 });
