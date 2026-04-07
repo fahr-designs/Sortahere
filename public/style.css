@@ -1,169 +1,441 @@
+/* ─── TOKENS ─────────────────────────────────────────────────────────────── */
 :root {
-  --color-bg: #f5f0e8;
-  --color-card: #fffdf7;
-  --color-primary: #5c7a4e;
-  --color-primary-dark: #48613d;
-  --color-accent: #c17f3a;
-  --color-text: #3b2f2f;
-  --color-border: #ddd5c0;
+  /* Pulled directly from the invitation */
+  --sage:         #7d9e82;      /* background sage green */
+  --sage-dark:    #5e7d63;      /* deeper green for accents */
+  --sage-light:   #a8c4ac;      /* lighter tint for borders */
+  --cream:        #f4ede0;      /* card/form background */
+  --brown:        #5c3d1e;      /* primary text brown */
+  --brown-dark:   #3e2a12;      /* headings, emphasis */
+  --brown-light:  #8a6642;      /* secondary text */
+  --amber:        #c17f3a;      /* accent: buttons, highlights */
+  --amber-dark:   #9e6428;
+  --border:       #c9b99a;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-label:   'Cinzel', Georgia, serif;
+  --font-body:    'Lato', sans-serif;
 }
+
+/* ─── BASE ───────────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
 
 body {
-  background-color: var(--color-bg);
+  margin: 0;
+  padding: 0;
+  background-color: var(--sage);
+  /* Subtle texture via radial gradients to break up the flat green */
   background-image:
-    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.45), transparent 20%),
-    radial-gradient(circle at 80% 10%, rgba(255,255,255,0.35), transparent 18%),
-    radial-gradient(circle at 50% 80%, rgba(255,255,255,0.3), transparent 25%);
-  color: var(--color-text);
-  font-family: 'Lato', sans-serif;
+    radial-gradient(ellipse at 15% 10%, rgba(255,255,255,0.18) 0%, transparent 40%),
+    radial-gradient(ellipse at 85% 5%,  rgba(255,255,255,0.12) 0%, transparent 35%),
+    radial-gradient(ellipse at 50% 90%, rgba(0,0,0,0.08)       0%, transparent 40%);
+  color: var(--brown);
+  font-family: var(--font-body);
   min-height: 100vh;
-  position: relative;
   overflow-x: hidden;
-}
-
-.hero-section {
   position: relative;
-  z-index: 2;
 }
 
-.hero-icons {
+/* ─── CORNER CREATURES ───────────────────────────────────────────────────── */
+.creature {
+  position: fixed;
+  font-size: 3.5rem;
+  opacity: 0.22;
+  pointer-events: none;
+  z-index: 0;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  animation: creatureBob 6s ease-in-out infinite;
+}
+
+.creature-tl { top: 16px;  left: 16px;  animation-delay: 0s;   }
+.creature-tr { top: 16px;  right: 16px; animation-delay: 1.5s; }
+.creature-bl { bottom: 16px; left: 16px;  animation-delay: 3s;   }
+.creature-br { bottom: 16px; right: 16px; animation-delay: 4.5s; }
+
+@keyframes creatureBob {
+  0%, 100% { transform: translateY(0);    }
+  50%       { transform: translateY(-6px); }
+}
+
+/* ─── LEAF SPRIGS ────────────────────────────────────────────────────────── */
+.leaf-sprig {
+  position: fixed;
   font-size: 2rem;
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+  animation: leafSway 8s ease-in-out infinite;
 }
 
-.hero-title,
-.form-title,
-.success-title {
-  font-family: 'Playfair Display', serif;
+.sprig-1 { top: 120px;  left: 40px;   animation-delay: 0s;   font-size: 2.5rem; }
+.sprig-2 { top: 200px;  right: 50px;  animation-delay: 2s;   }
+.sprig-3 { bottom: 200px; left: 60px; animation-delay: 4s;   font-size: 1.8rem; }
+.sprig-4 { bottom: 120px; right: 40px; animation-delay: 6s;  }
+
+@keyframes leafSway {
+  0%, 100% { transform: rotate(-5deg); }
+  50%       { transform: rotate(5deg);  }
+}
+
+/* ─── PAGE WRAPPER ───────────────────────────────────────────────────────── */
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 2rem 1rem 4rem;
+}
+
+/* ─── HERO / INVITATION SECTION ──────────────────────────────────────────── */
+.hero-section {
+  background: rgba(255,255,255,0.12);
+  backdrop-filter: blur(2px);
+  border: 2px solid rgba(255,255,255,0.25);
+  border-radius: 24px;
+  padding: 2.5rem 2rem 2rem;
+  margin-bottom: 2rem;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.3),
+    0 8px 32px rgba(0,0,0,0.12);
+}
+
+/* Fox sitting on top */
+.fox-topper {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  display: block;
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  animation: foxBounce 3s ease-in-out infinite;
+}
+
+@keyframes foxBounce {
+  0%, 100% { transform: translateY(0) rotate(-2deg); }
+  50%       { transform: translateY(-5px) rotate(2deg); }
+}
+
+.join-us-label {
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 4px;
+  color: var(--brown-dark);
+  text-transform: uppercase;
+  margin: 0 0 0.25rem;
+  font-weight: 600;
 }
 
 .hero-title {
-  font-size: 3rem;
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 12vw, 7rem);
   font-weight: 700;
-  color: var(--color-primary);
+  color: var(--brown-dark);
+  line-height: 0.9;
+  margin: 0.1rem 0 0.75rem;
+  text-shadow: 2px 3px 0 rgba(255,255,255,0.3);
+  /* Slight italic on "Shower" via CSS isn't possible per-word — keep upright */
 }
 
-.hero-subtitle {
-  font-size: 1.2rem;
-  color: var(--color-accent);
-  font-weight: 700;
+.honor-label {
+  font-family: var(--font-label);
+  font-size: 0.7rem;
+  letter-spacing: 4px;
+  color: var(--brown-light);
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
 }
 
-.hero-details {
-  color: #6d5d56;
-  line-height: 1.7;
+.honoree-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  font-weight: 500;
+  font-style: italic;
+  color: var(--brown-dark);
+  line-height: 1.25;
+  margin: 0 0 1rem;
 }
 
-.rsvp-card {
-  background-color: var(--color-card);
-  border-radius: 24px;
+.flourish {
+  color: var(--sage-dark);
+  font-size: 1.1rem;
+  letter-spacing: 8px;
+  margin: 0.5rem 0 1.5rem;
+  opacity: 0.7;
 }
 
-.form-title {
-  color: var(--color-primary);
-  font-size: 2rem;
-}
-
-.form-subtitle {
-  color: #6d5d56;
-}
-
-.form-label {
-  font-weight: 700;
-  color: var(--color-text);
-}
-
-.form-control {
-  border: 1px solid var(--color-border);
-  border-radius: 14px;
-  padding: 0.85rem 1rem;
-  background-color: #fff;
-}
-
-.form-control:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 0.2rem rgba(92, 122, 78, 0.15);
-}
-
-.attendance-options {
+/* ─── EVENT DETAILS ──────────────────────────────────────────────────────── */
+.event-details {
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.detail-col {
+  flex: 1;
+  min-width: 180px;
+}
+
+.detail-divider {
+  width: 1px;
+  background: var(--brown-light);
+  opacity: 0.35;
+  align-self: stretch;
+  min-height: 80px;
+}
+
+.detail-line {
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--brown-dark);
+  margin: 0 0 0.35rem;
+  line-height: 1.5;
+}
+
+.detail-line strong {
+  color: var(--brown-dark);
+}
+
+.registry-line {
+  margin-top: 0.75rem;
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+
+.registry-line a {
+  color: var(--sage-dark);
+  text-decoration: underline;
+  font-size: 0.7rem;
+  word-break: break-all;
+}
+
+.registry-line a:hover {
+  color: var(--brown-dark);
+}
+
+/* ─── RSVP CARD ──────────────────────────────────────────────────────────── */
+.rsvp-section {
+  /* nothing needed — inner handles it */
+}
+
+.rsvp-inner {
+  background-color: var(--cream);
+  border-radius: 24px;
+  padding: 2.5rem 2rem;
+  box-shadow:
+    0 4px 24px rgba(0,0,0,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.8);
+  border: 1px solid var(--border);
+}
+
+.rsvp-title {
+  font-family: var(--font-label);
+  font-size: 1.5rem;
+  letter-spacing: 6px;
+  color: var(--brown-dark);
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+}
+
+.rsvp-subtitle {
+  font-size: 0.95rem;
+  color: var(--brown-light);
+  margin: 0 0 2rem;
+  font-style: italic;
+}
+
+/* ─── FORM FIELDS ────────────────────────────────────────────────────────── */
+.field-group {
+  margin-bottom: 1.5rem;
+}
+
+.field-label {
+  display: block;
+  font-family: var(--font-label);
+  font-size: 0.68rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: var(--brown-dark);
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.field-input {
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  padding: 0.85rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  color: var(--brown);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.field-input::placeholder {
+  color: #bba98a;
+}
+
+.field-input:focus {
+  border-color: var(--sage-dark);
+  box-shadow: 0 0 0 3px rgba(94, 125, 99, 0.15);
+}
+
+.field-textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* ─── ATTENDANCE TOGGLE ──────────────────────────────────────────────────── */
+.toggle-group {
+  display: flex;
+  gap: 0.75rem;
   flex-wrap: wrap;
 }
 
-.attendance-btn {
-  border: 1px solid var(--color-border);
-  background: #fff;
-  color: var(--color-text);
-  border-radius: 14px;
-  padding: 0.9rem 1.2rem;
-  font-weight: 700;
+.toggle-input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-btn {
   flex: 1;
-  min-width: 200px;
+  min-width: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--brown);
+  font-family: var(--font-label);
+  font-size: 0.72rem;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
 }
 
-.btn-check:checked + .attendance-btn {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
+.toggle-btn:hover {
+  border-color: var(--sage-dark);
+  background: rgba(94, 125, 99, 0.06);
+}
+
+.toggle-input:checked + .toggle-btn {
+  background-color: var(--sage-dark);
+  border-color: var(--sage-dark);
   color: #fff;
+  box-shadow: 0 2px 8px rgba(94, 125, 99, 0.35);
+  transform: translateY(-1px);
 }
 
+/* ─── SUBMIT BUTTON ──────────────────────────────────────────────────────── */
 .submit-btn {
-  background-color: var(--color-primary);
-  border-color: var(--color-primary);
-  border-radius: 14px;
-  padding: 0.9rem 1rem;
-  font-weight: 700;
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--amber);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-family: var(--font-label);
+  font-size: 0.8rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  box-shadow: 0 3px 12px rgba(193, 127, 58, 0.35);
 }
 
-.submit-btn:hover,
-.submit-btn:focus {
-  background-color: var(--color-primary-dark);
-  border-color: var(--color-primary-dark);
+.submit-btn:hover {
+  background-color: var(--amber-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(193, 127, 58, 0.45);
 }
 
-.success-icon {
-  font-size: 3rem;
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ─── ERROR ALERT ────────────────────────────────────────────────────────── */
+.alert-woodland {
+  background: #fdf0e8;
+  border: 1px solid #e0a878;
+  border-radius: 10px;
+  color: var(--brown-dark);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.9rem;
+}
+
+/* ─── SUCCESS STATE ──────────────────────────────────────────────────────── */
+.success-state {
+  padding: 2rem 0 1rem;
+}
+
+.success-creature {
+  font-size: 4rem;
+  display: block;
+  margin-bottom: 0.75rem;
+  animation: foxBounce 2s ease-in-out infinite;
+}
+
+.success-title {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--brown-dark);
+  margin: 0 0 0.5rem;
 }
 
 .success-text {
-  color: #6d5d56;
+  color: var(--brown-light);
+  line-height: 1.7;
+  font-size: 0.95rem;
 }
 
-.background-leaf {
-  position: fixed;
-  opacity: 0.12;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.leaf-1 {
-  top: 40px;
-  left: 30px;
-  font-size: 4rem;
-}
-
-.leaf-2 {
-  top: 180px;
-  right: 40px;
-  font-size: 3.5rem;
-}
-
-.leaf-3 {
-  bottom: 60px;
-  left: 50px;
-  font-size: 4rem;
-}
-
-@media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.3rem;
+/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+  .page-wrap {
+    padding: 1rem 0.75rem 3rem;
   }
 
-  .attendance-options {
+  .hero-section {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+
+  .rsvp-inner {
+    padding: 2rem 1.25rem;
+  }
+
+  .event-details {
+    flex-direction: column;
+    gap: 1rem;
+    text-align: center;
+  }
+
+  .detail-divider {
+    display: none;
+  }
+
+  .toggle-group {
     flex-direction: column;
   }
 
-  .attendance-btn {
-    width: 100%;
+  .creature {
+    font-size: 2.2rem;
   }
 }
