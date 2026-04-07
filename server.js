@@ -89,6 +89,7 @@ app.post("/rsvp", rsvpLimiter, (req, res) => {
   }
 });
 
+
 // POST /admin/send-invites : Protected route — Reads guests.json, sends each address an invitation email via Resend.
 app.post("/admin/send-invites", async (req, res) => {
   // 1. Check the Authorization header against ADMIN_TOKEN. 
@@ -152,6 +153,34 @@ app.post("/admin/send-invites", async (req, res) => {
     failed: results.failed.length,
     detail: results,
   });
+});
+
+
+// GET /admin/rsvps
+// Protected by the same ADMIN_TOKEN header check.
+app.get('/admin/rsvps', (req, res) => {
+  const token = req.headers['authorization'];
+  if (!token || token !== ADMIN_TOKEN) {
+    return res.status(401).json({ error: 'Unauthorized.' });
+  }
+
+  try {
+    const rows = db.prepare(`
+      SELECT id, name, attending, message, created_at
+      FROM rsvps ORDER BY created_at DESC`).all();
+
+    const summary = {
+      total:    rows.length,
+      accepted: rows.filter(r => r.attending === 1).length,
+      declined: rows.filter(r => r.attending === 0).length,
+      rsvps:    rows
+    };
+
+    return res.status(200).json(summary);
+  } catch (err) {
+    console.error('DB read error:', err);
+    return res.status(500).json({ error: 'Could not retrieve RSVPs.' });
+  }
 });
 
 app.listen(PORT, () => {
