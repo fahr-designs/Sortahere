@@ -67,63 +67,39 @@ const rsvpLimiter = rateLimit({
 // Rate limiter applied as middleware before the handler runs.
 // TODO: consider if some form of bot protection and user validation is needed, but for a small, invite-only event, this may be sufficient.
 app.post("/rsvp", rsvpLimiter, (req, res) => {
-  const { name, attending, dietary, message } = req.body;
+  const { name, attending, message } = req.body;
 
-  // Validate: name
-  if (
-    !name ||
-    typeof name !== "string" ||
-    name.trim().length === 0 ||
-    name.length > 100
-  )
-    return res.status(400).json({ error: "Please enter a valid name." });
+  if (!name || typeof name !== "string" || name.trim().length === 0 || name.length > 100)
+    return res.status(400).json({ error: "Please enter your name so that we know you are coming!" });
 
-  // Validate: attending must be exactly 0 or 1
   if (attending !== 0 && attending !== 1)
-    return res
-      .status(400)
-      .json({ error: "Please select whether you are attending." });
+    return res.status(400).json({ error: "Please select whether you are attending or not." });
 
-  // Validate: message (optional, max length)
   if (message && message.length > 500)
-    return res
-      .status(400)
-      .json({ error: "Message must be under 500 characters." });
+    return res.status(400).json({ error: "Message must be under 500 characters." });
 
-  // Insert — better-sqlite3 is synchronous, so no await needed
   try {
-    const stmt = db.prepare(`
-      INSERT INTO rsvps (name, attending, guest_count, dietary, message)
-      VALUES (?, ?, ?, ?, ?)
-    `);
-    stmt.run(
-      name.trim(),
-      attending,
-      guestCount,
-      dietary || null,
-      message || null,
-    );
+    const stmt = db.prepare(`INSERT INTO rsvps (name, attending, message) VALUES (?, ?, ?)`);
+    stmt.run(name.trim(), attending, message || null);
+
     return res.status(201).json({ success: true });
-  } catch (err) {
-    console.error("DB insert error:", err);
-    return res
-      .status(500)
-      .json({ error: "Something went wrong. Please try again." });
+  } catch (error) {
+    console.error("DB insert error:", error);
+    return res.status(500).json({ error: "Something went wrong. Please try again." });
   }
 });
 
 // POST /admin/send-invites : Protected route — Reads guests.json, sends each address an invitation email via Resend.
 app.post("/admin/send-invites", async (req, res) => {
-  // 1. Check the Authorization header against ADMIN_TOKEN.
-  //    req.headers['authorization'] must exactly match the token.
-  //    No "Bearer " prefix — just the raw token string.
+  // 1. Check the Authorization header against ADMIN_TOKEN. 
+  // req.headers['authorization'] must exactly match the token.
+  // No "Bearer " prefix — just the raw token string.
   const token = req.headers["authorization"];
   if (!token || token !== ADMIN_TOKEN) {
     return res.status(401).json({ error: "Unauthorized." });
   }
 
   // 2. Load guests.json — a plain array of email address strings.
-  //    If the file doesn't exist or is malformed, fail with a clear error.
   let guests;
   try {
     const raw = fs.readFileSync(path.join(__dirname, "guests.json"), "utf8");
@@ -136,11 +112,10 @@ app.post("/admin/send-invites", async (req, res) => {
   }
 
   // 3. Load the email template.
-  //    email-template.js exports { subject, html(rsvpUrl) }
   const template = require("./email-template");
 
   // 4. Send to each guest individually.
-  //    We loop rather than batch so we get per-address success/failure reporting.
+  // Loop rather than batch so we get per-address success/failure reporting.
   const results = { sent: [], failed: [] };
 
   for (const email of guests) {
