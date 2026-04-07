@@ -63,8 +63,7 @@ const rsvpLimiter = rateLimit({
 });
 
 // 8. ROUTES
-// POST /rsvp : Public route — any guest can hit this.
-// Rate limiter applied as middleware before the handler runs.
+// POST /rsvp 
 // TODO: consider if some form of bot protection and user validation is needed, but for a small, invite-only event, this may be sufficient.
 app.post("/rsvp", rsvpLimiter, (req, res) => {
   const { name, attending, message } = req.body;
@@ -121,26 +120,22 @@ app.post("/admin/send-invites", async (req, res) => {
   // Loop rather than batch so we get per-address success/failure reporting.
   const results = { sent: [], failed: [] };
 
-  for (const email of guests) {
+  for (const { name, email } of guests) {
     try {
-      // resend.emails.send() returns { data, error } per the Resend SDK docs.
-      for (const { name, email } of guests) {
-        await resend.emails.send({
-          to: [email],
-          subject: `${name}! ${template.subject}`,  // optional personalization
-          html: template.html(process.env.RSVP_URL, name)
-        });
-}
+      const { data, error } = await resend.emails.send({
+        from:    process.env.INVITE_FROM_EMAIL,
+        to:      [email],
+        subject: `${name}! ${template.subject}`,
+        html:    template.html(process.env.RSVP_URL, name)
+      });
 
       if (error) {
-        // Resend returned an error for this specific address — log and continue
         console.error(`Resend error for ${email}:`, error);
         results.failed.push({ email, error: error.message });
       } else {
         results.sent.push(email);
       }
     } catch (err) {
-      // Network or unexpected error — log and continue to next guest
       console.error(`Unexpected error for ${email}:`, err.message);
       results.failed.push({ email, error: err.message });
     }
