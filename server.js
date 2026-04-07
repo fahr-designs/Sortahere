@@ -104,8 +104,10 @@ app.post("/admin/send-invites", async (req, res) => {
   try {
     const raw = fs.readFileSync(path.join(__dirname, "guests.json"), "utf8");
     guests = JSON.parse(raw);
-    if (!Array.isArray(guests))
-      throw new Error("guests.json must be a JSON array");
+    
+    if (!Array.isArray(guests) || !guests.every(g => g.name && g.email)) 
+      throw new Error('Each guest must have a name and email field');
+
   } catch (err) {
     console.error("Failed to load guests.json:", err);
     return res.status(500).json({ error: "Could not load guest list." });
@@ -121,12 +123,13 @@ app.post("/admin/send-invites", async (req, res) => {
   for (const email of guests) {
     try {
       // resend.emails.send() returns { data, error } per the Resend SDK docs.
-      const { data, error } = await resend.emails.send({
-        from: process.env.INVITE_FROM_EMAIL, // must be from your verified domain
-        to: [email], // Resend expects an array
-        subject: template.subject,
-        html: template.html(process.env.RSVP_URL),
-      });
+      for (const { name, email } of guests) {
+        await resend.emails.send({
+          to: [email],
+          subject: `${name}! ${template.subject}`,  // optional personalization
+          html: template.html(process.env.RSVP_URL, name)
+        });
+}
 
       if (error) {
         // Resend returned an error for this specific address — log and continue

@@ -1,13 +1,7 @@
-// emailTemplate.js
-// Woodland creatures baby shower invitation email
-// Layout: table-based for cross-client compatibility (Gmail, Outlook, Apple Mail)
-// Fonts: Playfair Display via Google Fonts link (fallback: Georgia, serif)
-// Theme: warm parchment bg, forest green accents, acorn amber highlights
-
 module.exports = {
-  subject: "You're Invited 🌿 [Name]'s Baby Shower",
+  subject: "You're Invited 🌿 To A Baby Shower!",
 
-  html: (rsvpUrl) => `
+  html: (rsvpUrl, name) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -83,8 +77,10 @@ module.exports = {
 
               <!-- Intro -->
               <p style="margin: 0 0 24px; font-size: 16px; color: #4a3728; line-height: 1.7; font-family: Georgia, serif; text-align: center;">
-                We'd love to have you join us as we celebrate the arrival of a precious little one.
-                Come share in the joy — good company, warm hearts, and a few woodland friends.
+                Dear ${name},
+                <br />
+                We'd love to have you join us as we celebrate the arrival of baby Aguilar-Hernandez-Ross!
+                Come share in the joy with good company, warm hearts, and a few woodland friends.
               </p>
 
               <!-- Divider -->
@@ -95,15 +91,8 @@ module.exports = {
               </table>
 
               <!-- Event details block -->
-              <table
-                role="presentation"
-                class="details-table"
-                width="100%"
-                cellpadding="0"
-                cellspacing="0"
-                border="0"
-                style="margin-bottom: 28px;"
-              >
+              <table role="presentation" class="details-table" width="100%" 
+                cellpadding="0" cellspacing="0" border="0" style="margin-bottom: 28px;">
                 <tr>
                   <td style="padding: 8px 0; font-family: Georgia, serif; font-size: 14px; color: #8a7a60; text-transform: uppercase; letter-spacing: 1.5px; width: 100px; vertical-align: top;">
                     Date
@@ -162,8 +151,7 @@ module.exports = {
                         text-decoration: none;
                         padding: 14px 40px;
                         border-radius: 6px;
-                      "
-                    >
+                      ">
                       RSVP Now
                     </a>
                   </td>
@@ -180,12 +168,19 @@ module.exports = {
 
           <!-- Footer -->
           <tr>
-            <td
-              align="center"
-              style="background-color: #ede3d0; padding: 20px 32px; border-radius: 0 0 11px 11px; border-top: 1px solid #d6c9a8;"
-            >
+            <td align="center"
+              style="background-color: #ede3d0; padding: 20px 32px; border-radius: 0 0 11px 11px; border-top: 1px solid #d6c9a8;">
               <p style="margin: 0; font-size: 13px; color: #8a7a60; font-family: Georgia, serif; font-style: italic;">
                 Sent with love 🍄🌿🐿️
+              </p>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="height: 16px;">
+              <p>
+                &nbsp; Check out the baby 
+                  <a href="${registryUrl}" target="_blank" style="color: #5c7a4e; text-decoration: underline;">registry</a>! &nbsp;
               </p>
             </td>
           </tr>
