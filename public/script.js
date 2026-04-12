@@ -1,27 +1,8 @@
  form = document.getElementById('rsvp-form');
 const submitButton = document.getElementById('submit-btn');
 const errorAlert = document.getElementById('error-alert');
-const successMessage = document.getElementById('success-message');
-const guestCountRow = document.getElementById('guest-count-row');
-const guestCountInput = document.getElementById('guest_count');
 const attendanceRadios = document.querySelectorAll('input[name="attending"]');
 
-attendanceRadios.forEach((radio) => {
-  radio.addEventListener('change', () => {
-    const selectedValue = document.querySelector('input[name="attending"]:checked')?.value;
-
-    if (selectedValue === '0') {
-      guestCountRow.classList.add('d-none');
-      guestCountInput.value = 0;
-    } else {
-      guestCountRow.classList.remove('d-none');
-
-      if (guestCountInput.value === '0') {
-        guestCountInput.value = 1;
-      }
-    }
-  });
-});
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
@@ -61,8 +42,7 @@ form.addEventListener('submit', async (event) => {
     const data = await response.json();
 
     if (response.status === 201) {
-      form.classList.add('d-none');
-      successMessage.classList.remove('d-none');
+      window.location.href = '/success.html';
       return;
     }
 
