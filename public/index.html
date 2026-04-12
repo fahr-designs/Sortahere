@@ -67,47 +67,44 @@
 			<div class="flourish" aria-hidden="true">— ❧	❧	❧ —	</div>
 		</header>
 
-		<main class="rsvp-section">
-			<div class="rsvp-inner">
+		<main class="rsvp-form">
+			<div id="error-alert" class="alert-woodland d-none" role="alert"></div>
 
-				<div id="error-alert" class="alert-woodland d-none" role="alert"></div>
+			<form id="rsvp-form" novalidate>
+				<div class="field-group">
+					<label for="name" class="field-label">Your Name</label>
+					<input type="text" class="field-input" id="name" name="name" maxlength="100"
+						placeholder="Full name" required />
+				</div>
 
-				<form id="rsvp-form" novalidate>
-					<div class="field-group">
-						<label for="name" class="field-label">Your Name</label>
-						<input type="text" class="field-input" id="name" name="name" maxlength="100"
-							placeholder="Full name" required />
+				<div class="field-group">
+					<label class="field-label d-block">Will you be attending?</label>
+					<div class="toggle-group">
+						<input type="radio" class="toggle-input" name="attending" id="attending-yes" value="1"
+							autocomplete="off" required />
+						<label class="toggle-btn" for="attending-yes">
+							Joyfully Accept
+						</label>
+
+						<input type="radio" class="toggle-input" name="attending" id="attending-no" value="0"
+							autocomplete="off" />
+						<label class="toggle-btn" for="attending-no">
+							Regretfully Decline
+						</label>
 					</div>
+				</div>
 
-					<div class="field-group">
-						<label class="field-label d-block">Will you be attending?</label>
-						<div class="toggle-group">
-							<input type="radio" class="toggle-input" name="attending" id="attending-yes" value="1"
-								autocomplete="off" required />
-							<label class="toggle-btn" for="attending-yes">
-								🌿 Joyfully Accept
-							</label>
+				<div class="field-group">
+					<label for="message" class="field-label">Message for the Parents</label>
+					<textarea class="field-input field-textarea" id="message" name="message" rows="4"
+						maxlength="500" placeholder="Leave a little note… 🍂 "></textarea>
+				</div>
 
-							<input type="radio" class="toggle-input" name="attending" id="attending-no" value="0"
-								autocomplete="off" />
-							<label class="toggle-btn" for="attending-no">
-								🍂 Regretfully Decline
-							</label>
-						</div>
-					</div>
+				<button type="submit" class="submit-btn" id="submit-btn">
+					Send RSVP
+				</button>
+			</form>
 
-					<div class="field-group">
-						<label for="message" class="field-label">Message for the Parents</label>
-						<textarea class="field-input field-textarea" id="message" name="message" rows="4"
-							maxlength="500" placeholder="Leave a little note… 🌿"></textarea>
-					</div>
-
-					<button type="submit" class="submit-btn" id="submit-btn">
-						Send RSVP
-					</button>
-				</form>
-
-			</div>
 		</main>
 
 		<!-- <footer class="text-center">

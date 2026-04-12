@@ -237,53 +237,43 @@ body {
   word-break: break-all;
 }
 
-/* ─── RSVP CARD ──── */
-
-.rsvp-inner {
-  background-color: var(--cream);
-  border-radius: 24px;
+/* ─── FORM FIELDS ──── */
+.rsvp-form {
+  background-color: var(--sage-light);
+  border-radius: 18px;
   padding: 2.5rem 2rem;
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.12),
     inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 1px solid var(--border);
+  border: 1px solid var(--cream);
+  font-family: var(--font-lato);
 }
 
-
-
-/* ─── FORM FIELDS ────────────────────────────────────────────────────────── */
 .field-group {
   margin-bottom: 1.5rem;
 }
 
 .field-label {
   display: block;
-  font-family: var(--font-label);
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   letter-spacing: 2.5px;
   text-transform: uppercase;
   color: var(--brown-dark);
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.75rem;
   font-weight: 600;
 }
 
 .field-input {
   width: 100%;
-  background: #fff;
-  border: 1.5px solid var(--border);
+  background: whitesmoke;
+  border: 1.5px solid var(--cream);
   border-radius: 12px;
   padding: 0.85rem 1rem;
-  font-family: var(--font-body);
   font-size: 0.95rem;
-  color: var(--brown);
   transition:
     border-color 0.2s,
     box-shadow 0.2s;
   outline: none;
-}
-
-.field-input::placeholder {
-  color: #bba98a;
 }
 
 .field-input:focus {
@@ -293,7 +283,7 @@ body {
 
 .field-textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 127px;
 }
 
 /* ─── ATTENDANCE TOGGLE ──────────────────────────────────────────────────── */
@@ -318,12 +308,10 @@ body {
   justify-content: center;
   gap: 0.5rem;
   padding: 0.85rem 1rem;
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--cream);
   border-radius: 12px;
-  background: #fff;
-  color: var(--brown);
-  font-family: var(--font-label);
-  font-size: 0.72rem;
+  background: whitesmoke;
+  font-size: 0.81rem;
   letter-spacing: 1.5px;
   text-transform: uppercase;
   cursor: pointer;
@@ -351,12 +339,12 @@ body {
 .submit-btn {
   width: 100%;
   padding: 1rem;
-  background-color: var(--amber);
+  background-color: var(--first);
   border: none;
   border-radius: 12px;
-  color: #fff;
-  font-family: var(--font-label);
-  font-size: 0.8rem;
+  color: var(--brown-dark);
+  /* font-family: var(--font-label); */
+  font-size: 0.9rem;
   letter-spacing: 3px;
   text-transform: uppercase;
   cursor: pointer;
@@ -369,7 +357,8 @@ body {
 }
 
 .submit-btn:hover {
-  background-color: var(--amber-dark);
+  background-color: var(--sage-dark);
+  color: whitesmoke;
   transform: translateY(-1px);
   box-shadow: 0 5px 16px rgba(193, 127, 58, 0.45);
 }
@@ -426,16 +415,8 @@ body {
     padding: 1rem 0.75rem 3rem;
   }
 
-  .hero-section {
-    padding: 2rem 1.25rem 1.5rem;
-  }
-
-  .rsvp-inner {
+  .rsvp-form {
     padding: 2rem 1.25rem;
-  }
-
-  .detail-divider {
-    display: none;
   }
 
   .toggle-group {
