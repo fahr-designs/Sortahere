@@ -1,34 +1,55 @@
-/* ─── TOKENS ─────────────────────────────────────────────────────────────── */
 :root {
   /* Pulled directly from the invitation */
-  --sage:         #7d9e82;      /* background sage green */
-  --sage-dark:    #5e7d63;      /* deeper green for accents */
-  --sage-light:   #a8c4ac;      /* lighter tint for borders */
-  --cream:        #f4ede0;      /* card/form background */
-  --brown:        #5c3d1e;      /* primary text brown */
-  --brown-dark:   #3e2a12;      /* headings, emphasis */
-  --brown-light:  #8a6642;      /* secondary text */
-  --amber:        #c17f3a;      /* accent: buttons, highlights */
-  --amber-dark:   #9e6428;
-  --border:       #c9b99a;
+  --sage: #7d9e82; /* background sage green */
+  --sage-dark: #5e7d63; /* deeper green for accents */
+  --sage-light: #a8c4ac; /* lighter tint for borders */
+  --cream: #f4ede0; /* card/form background */
+  --brown: #5c3d1e; /* primary text brown */
+  --brown-dark: #3e2a12; /* headings, emphasis */
+  --brown-light: #8a6642; /* secondary text */
+  --amber: #c17f3a; /* accent: buttons, highlights */
+  --amber-dark: #9e6428;
+  --border: #c9b99a;
 
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-label:   'Cinzel', Georgia, serif;
-  --font-body:    'Lato', sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-label: "Cinzel", Georgia, serif;
+  --font-body: "Lato", sans-serif;
+
+
+  /* Color Palette Changes
+    #EBAB61;
+    #90482F;
+    #CD9782;
+    #81A266;
+    #7DA2AD;
+    #95A888;
+    #3C5756;
+    #B6D2BB;
+  */
 }
 
-/* ─── BASE ───────────────────────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
   padding: 0;
   background-color: var(--sage);
-  /* Subtle texture via radial gradients to break up the flat green */
   background-image:
-    radial-gradient(ellipse at 15% 10%, rgba(255,255,255,0.18) 0%, transparent 40%),
-    radial-gradient(ellipse at 85% 5%,  rgba(255,255,255,0.12) 0%, transparent 35%),
-    radial-gradient(ellipse at 50% 90%, rgba(0,0,0,0.08)       0%, transparent 40%);
+    radial-gradient(
+      ellipse at 15% 10%,
+      rgba(255, 255, 255, 0.18) 0%,
+      transparent 40%
+    ),
+    radial-gradient(
+      ellipse at 85% 5%,
+      rgba(255, 255, 255, 0.12) 0%,
+      transparent 35%
+    ),
+    radial-gradient(ellipse at 50% 90%, rgba(0, 0, 0, 0.08) 0%, transparent 40%);
   color: var(--brown);
   font-family: var(--font-body);
   min-height: 100vh;
@@ -36,7 +57,7 @@ body {
   position: relative;
 }
 
-/* ─── CORNER CREATURES ───────────────────────────────────────────────────── */
+/* ─── CORNER CREATURES ─── */
 .creature {
   position: fixed;
   font-size: 3.5rem;
@@ -44,21 +65,42 @@ body {
   pointer-events: none;
   z-index: 0;
   line-height: 1;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
   animation: creatureBob 6s ease-in-out infinite;
 }
 
-.creature-tl { top: 16px;  left: 16px;  animation-delay: 0s;   }
-.creature-tr { top: 16px;  right: 16px; animation-delay: 1.5s; }
-.creature-bl { bottom: 16px; left: 16px;  animation-delay: 3s;   }
-.creature-br { bottom: 16px; right: 16px; animation-delay: 4.5s; }
-
-@keyframes creatureBob {
-  0%, 100% { transform: translateY(0);    }
-  50%       { transform: translateY(-6px); }
+.creature-tl {
+  top: 16px;
+  left: 16px;
+  animation-delay: 0s;
+}
+.creature-tr {
+  top: 16px;
+  right: 16px;
+  animation-delay: 1.5s;
+}
+.creature-bl {
+  bottom: 16px;
+  left: 16px;
+  animation-delay: 3s;
+}
+.creature-br {
+  bottom: 16px;
+  right: 16px;
+  animation-delay: 4.5s;
 }
 
-/* ─── LEAF SPRIGS ────────────────────────────────────────────────────────── */
+@keyframes creatureBob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+/* ─── LEAF SPRIGS ─── */
 .leaf-sprig {
   position: fixed;
   font-size: 2rem;
@@ -68,36 +110,52 @@ body {
   animation: leafSway 8s ease-in-out infinite;
 }
 
-.sprig-1 { top: 120px;  left: 40px;   animation-delay: 0s;   font-size: 2.5rem; }
-.sprig-2 { top: 200px;  right: 50px;  animation-delay: 2s;   }
-.sprig-3 { bottom: 200px; left: 60px; animation-delay: 4s;   font-size: 1.8rem; }
-.sprig-4 { bottom: 120px; right: 40px; animation-delay: 6s;  }
-
-@keyframes leafSway {
-  0%, 100% { transform: rotate(-5deg); }
-  50%       { transform: rotate(5deg);  }
+.sprig-1 {
+  top: 120px;
+  left: 40px;
+  animation-delay: 0s;
+  font-size: 2.5rem;
+}
+.sprig-2 {
+  top: 200px;
+  right: 50px;
+  animation-delay: 2s;
+}
+.sprig-3 {
+  bottom: 200px;
+  left: 60px;
+  animation-delay: 4s;
+  font-size: 1.8rem;
+}
+.sprig-4 {
+  bottom: 120px;
+  right: 40px;
+  animation-delay: 6s;
 }
 
-/* ─── PAGE WRAPPER ───────────────────────────────────────────────────────── */
+@keyframes leafSway {
+  0%,
+  100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
 .page-wrap {
   position: relative;
   z-index: 1;
   max-width: 680px;
-  margin: 0 auto;
+  margin: 1rem auto;
   padding: 2rem 1rem 4rem;
-}
-
-/* ─── HERO / INVITATION SECTION ──────────────────────────────────────────── */
-.hero-section {
-  background: rgba(255,255,255,0.12);
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(2px);
-  border: 2px solid rgba(255,255,255,0.25);
+  border: 2px solid rgba(255, 255, 255, 0.25);
   border-radius: 24px;
-  padding: 2.5rem 2rem 2rem;
-  margin-bottom: 2rem;
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,0.3),
-    0 8px 32px rgba(0,0,0,0.12);
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 8px 32px rgba(0, 0, 0, 0.12);
 }
 
 /* Fox sitting on top */
@@ -105,18 +163,23 @@ body {
   font-size: 4rem;
   margin-bottom: 0.5rem;
   display: block;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.2));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
   animation: foxBounce 3s ease-in-out infinite;
 }
 
 @keyframes foxBounce {
-  0%, 100% { transform: translateY(0) rotate(-2deg); }
-  50%       { transform: translateY(-5px) rotate(2deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-5px) rotate(2deg);
+  }
 }
 
 .join-us-label {
   font-family: var(--font-label);
-  font-size: 0.75rem;
+  font-size: 1rem;
   letter-spacing: 4px;
   color: var(--brown-dark);
   text-transform: uppercase;
@@ -131,8 +194,7 @@ body {
   color: var(--brown-dark);
   line-height: 0.9;
   margin: 0.1rem 0 0.75rem;
-  text-shadow: 2px 3px 0 rgba(255,255,255,0.3);
-  /* Slight italic on "Shower" via CSS isn't possible per-word — keep upright */
+  text-shadow: 2px 3px 0 rgba(255, 255, 255, 0.3);
 }
 
 .honor-label {
@@ -162,43 +224,6 @@ body {
   opacity: 0.7;
 }
 
-/* ─── EVENT DETAILS ──────────────────────────────────────────────────────── */
-.event-details {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: wrap;
-  text-align: left;
-}
-
-.detail-col {
-  flex: 1;
-  min-width: 180px;
-}
-
-.detail-divider {
-  width: 1px;
-  background: var(--brown-light);
-  opacity: 0.35;
-  align-self: stretch;
-  min-height: 80px;
-}
-
-.detail-line {
-  font-family: var(--font-label);
-  font-size: 0.72rem;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--brown-dark);
-  margin: 0 0 0.35rem;
-  line-height: 1.5;
-}
-
-.detail-line strong {
-  color: var(--brown-dark);
-}
-
 .registry-line {
   margin-top: 0.75rem;
   text-transform: none;
@@ -226,8 +251,8 @@ body {
   border-radius: 24px;
   padding: 2.5rem 2rem;
   box-shadow:
-    0 4px 24px rgba(0,0,0,0.12),
-    inset 0 1px 0 rgba(255,255,255,0.8);
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
   border: 1px solid var(--border);
 }
 
@@ -272,7 +297,9 @@ body {
   font-family: var(--font-body);
   font-size: 0.95rem;
   color: var(--brown);
-  transition: border-color 0.2s, box-shadow 0.2s;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
   outline: none;
 }
 
@@ -321,7 +348,11 @@ body {
   letter-spacing: 1.5px;
   text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.1s;
+  transition:
+    background 0.2s,
+    border-color 0.2s,
+    color 0.2s,
+    transform 0.1s;
 }
 
 .toggle-btn:hover {
@@ -337,7 +368,7 @@ body {
   transform: translateY(-1px);
 }
 
-/* ─── SUBMIT BUTTON ──────────────────────────────────────────────────────── */
+/* ─── SUBMIT BUTTON ─── */
 .submit-btn {
   width: 100%;
   padding: 1rem;
@@ -351,7 +382,10 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   margin-top: 0.5rem;
-  transition: background-color 0.2s, transform 0.1s, box-shadow 0.2s;
+  transition:
+    background-color 0.2s,
+    transform 0.1s,
+    box-shadow 0.2s;
   box-shadow: 0 3px 12px rgba(193, 127, 58, 0.35);
 }
 
@@ -371,7 +405,7 @@ body {
   transform: none;
 }
 
-/* ─── ERROR ALERT ────────────────────────────────────────────────────────── */
+/* ─── ERROR ALERT ──── */
 .alert-woodland {
   background: #fdf0e8;
   border: 1px solid #e0a878;
@@ -382,7 +416,7 @@ body {
   font-size: 0.9rem;
 }
 
-/* ─── SUCCESS STATE ──────────────────────────────────────────────────────── */
+/* ─── SUCCESS STATE ─── */
 .success-state {
   padding: 2rem 0 1rem;
 }
@@ -407,7 +441,7 @@ body {
   font-size: 0.95rem;
 }
 
-/* ─── RESPONSIVE ─────────────────────────────────────────────────────────── */
+/* ─── RESPONSIVE ───*/
 @media (max-width: 600px) {
   .page-wrap {
     padding: 1rem 0.75rem 3rem;
@@ -419,12 +453,6 @@ body {
 
   .rsvp-inner {
     padding: 2rem 1.25rem;
-  }
-
-  .event-details {
-    flex-direction: column;
-    gap: 1rem;
-    text-align: center;
   }
 
   .detail-divider {
