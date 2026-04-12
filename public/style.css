@@ -343,7 +343,6 @@ body {
   border: none;
   border-radius: 12px;
   color: var(--brown-dark);
-  /* font-family: var(--font-label); */
   font-size: 0.9rem;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -384,29 +383,131 @@ body {
   font-size: 0.9rem;
 }
 
-/* ─── SUCCESS STATE ─── */
-.success-state {
-  padding: 2rem 0 1rem;
+/* ─── SUCCESS PAGE ─── */
+.success-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem 1rem;
+}
+
+.success-card {
+  background-color: var(--sage-light);
+  border-radius: 24px;
+  padding: 3rem 2rem;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  border: 1px solid var(--cream);
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
 }
 
 .success-creature {
-  font-size: 4rem;
+  font-size: 5rem;
   display: block;
-  margin-bottom: 0.75rem;
-  animation: foxBounce 2s ease-in-out infinite;
+  margin-bottom: 1.5rem;
+  animation: foxBounce 3s ease-in-out infinite;
 }
 
 .success-title {
-  font-family: var(--font-display);
-  font-size: 2rem;
+  font-family: var(--font-cinzel);
+  font-size: clamp(2.2rem, 6vw, 3rem);
   color: var(--brown-dark);
-  margin: 0 0 0.5rem;
+  margin: 0 0 1rem;
+  line-height: 1.2;
 }
 
 .success-text {
-  color: var(--brown-light);
-  line-height: 1.7;
-  font-size: 0.95rem;
+  color: var(--brown);
+  line-height: 1.8;
+  margin: 0 0 2rem;
+}
+
+.success-registry {
+  background: rgba(125, 158, 130, 0.08);
+  border: 2px solid var(--sage-light);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+.registry-label {
+  font-family: var(--font-lato);
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--brown-dark);
+  margin: 0 0 0.75rem;
+  display: block;
+  font-weight: 600;
+}
+
+.registry-link {
+  color: var(--sage-dark);
+  text-decoration: none;
+  font-size: 0.9rem;
+  word-break: break-all;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.registry-link:hover {
+  color: var(--brown-dark);
+  text-decoration: underline;
+}
+
+.return-btn {
+  display: inline-block;
+  padding: 1.2rem 2rem;
+  background-color: var(--amber);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 12px;
+  font-family: var(--font-label);
+  font-size: 0.75rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    transform 0.1s,
+    box-shadow 0.2s;
+  box-shadow: 0 3px 12px rgba(193, 127, 58, 0.35);
+  border: none;
+}
+
+.return-btn:hover {
+  background-color: var(--amber-dark);
+  transform: translateY(-1px);
+  box-shadow: 0 5px 16px rgba(193, 127, 58, 0.45);
+  color: #fff;
+}
+
+.return-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .success-card {
+    padding: 2rem 1.25rem;
+  }
+
+  .success-creature {
+    font-size: 3.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .success-title {
+    font-size: 2rem;
+  }
+
+  .success-text {
+    font-size: 0.95rem;
+  }
 }
 
 /* ─── RESPONSIVE ───*/
