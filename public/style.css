@@ -210,27 +210,34 @@ body {
   opacity: 0.7;
 }
 
-.registry-line {
-  margin-top: 0.75rem;
-  text-transform: none;
-  letter-spacing: 0.5px;
+.rsvp-header {
+  text-align: center;
 }
 
-.registry-line a {
-  color: var(--sage-dark);
-  text-decoration: underline;
-  font-size: 0.7rem;
+.rsvp-header h3 {
+  font-size: 1.5rem;
+  letter-spacing: 3px;
+  color: var(--brown-dark);
+  margin: 0 0 0.25rem;
+  text-transform: uppercase;
+}
+
+.rsvp-subtitle {
+  font-size: 1.5rem;
+  color: var(--second);
+  margin: 0 0 2rem;
+  font-style: italic;
+}
+
+.registry-link {
+  text-transform: none;
+  letter-spacing: 0.9px;
+  color: var(--second);
+  text-decoration: none;
   word-break: break-all;
 }
 
-.registry-line a:hover {
-  color: var(--brown-dark);
-}
-
-/* ─── RSVP CARD ──────────────────────────────────────────────────────────── */
-.rsvp-section {
-  /* nothing needed — inner handles it */
-}
+/* ─── RSVP CARD ──── */
 
 .rsvp-inner {
   background-color: var(--cream);
@@ -242,21 +249,7 @@ body {
   border: 1px solid var(--border);
 }
 
-.rsvp-title {
-  font-family: var(--font-label);
-  font-size: 1.5rem;
-  letter-spacing: 6px;
-  color: var(--brown-dark);
-  margin: 0 0 0.25rem;
-  text-transform: uppercase;
-}
 
-.rsvp-subtitle {
-  font-size: 0.95rem;
-  color: var(--brown-light);
-  margin: 0 0 2rem;
-  font-style: italic;
-}
 
 /* ─── FORM FIELDS ────────────────────────────────────────────────────────── */
 .field-group {
