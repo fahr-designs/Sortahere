@@ -11,21 +11,21 @@
   --amber-dark: #9e6428;
   --border: #c9b99a;
 
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-label: "Cinzel", Georgia, serif;
-  --font-body: "Lato", sans-serif;
+  --font-garamond: "EB Garamond", Georgia, serif;
+  --font-cinzel: "Cinzel", Georgia, serif;
+  --font-lato: "Lato", sans-serif;
 
 
-  /* Color Palette Changes
-    #EBAB61;
-    #90482F;
-    #CD9782;
-    #81A266;
-    #7DA2AD;
-    #95A888;
-    #3C5756;
-    #B6D2BB;
-  */
+  /* Color Palette Changes */
+  --first: #EBAB61;
+  --second: #90482F;
+  --third: #CD9782;
+  --fourth: #81A266;
+  --fifth: #7DA2AD;
+  --sixth: #95A888;
+  --seventh: #3C5756;
+  --eighth: #B6D2BB;
+ 
 }
 
 *,
@@ -37,7 +37,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--sage);
+  background-color: var(--fourth);
   background-image:
     radial-gradient(
       ellipse at 15% 10%,
@@ -50,8 +50,8 @@ body {
       transparent 35%
     ),
     radial-gradient(ellipse at 50% 90%, rgba(0, 0, 0, 0.08) 0%, transparent 40%);
-  color: var(--brown);
-  font-family: var(--font-body);
+  color: var(--brown-dark);
+  font-family: var(--font-garamond);
   min-height: 100vh;
   overflow-x: hidden;
   position: relative;
@@ -177,49 +177,35 @@ body {
   }
 }
 
-.join-us-label {
-  font-family: var(--font-label);
+.join-us-label,
+.honor-label {
   font-size: 1rem;
   letter-spacing: 4px;
   color: var(--brown-dark);
   text-transform: uppercase;
-  margin: 0 0 0.25rem;
   font-weight: 600;
 }
 
 .hero-title {
-  font-family: var(--font-display);
   font-size: clamp(4rem, 12vw, 7rem);
-  font-weight: 700;
-  color: var(--brown-dark);
-  line-height: 0.9;
-  margin: 0.1rem 0 0.75rem;
-  text-shadow: 2px 3px 0 rgba(255, 255, 255, 0.3);
-}
-
-.honor-label {
-  font-family: var(--font-label);
-  font-size: 0.7rem;
-  letter-spacing: 4px;
+  font-weight: 500;
   color: var(--brown-light);
-  text-transform: uppercase;
-  margin: 0 0 0.5rem;
+  line-height: 0.9;
+  margin-bottom: 1rem;
 }
 
 .honoree-name {
-  font-family: var(--font-display);
-  font-size: clamp(1.6rem, 5vw, 2.4rem);
-  font-weight: 500;
-  font-style: italic;
-  color: var(--brown-dark);
-  line-height: 1.25;
+  font-family: var(--font-cinzel);
+  font-size: clamp(2rem, 5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--brown-light);
   margin: 0 0 1rem;
 }
 
 .flourish {
   color: var(--sage-dark);
-  font-size: 1.1rem;
-  letter-spacing: 8px;
+  font-size: 1.85rem;
+  letter-spacing: 18px;
   margin: 0.5rem 0 1.5rem;
   opacity: 0.7;
 }
