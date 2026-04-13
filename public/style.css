@@ -230,11 +230,17 @@ body {
 }
 
 .registry-link {
-  text-transform: none;
-  letter-spacing: 0.9px;
-  color: var(--second);
+  color: var(--sage-dark);
   text-decoration: none;
+  font-size: 1.2rem;
   word-break: break-all;
+  transition: color 0.2s;
+  font-weight: 500;
+}
+
+.registry-link:hover {
+  color: var(--brown-dark);
+  text-decoration: underline;
 }
 
 /* ─── FORM FIELDS ──── */
@@ -444,20 +450,6 @@ body {
   margin: 0 0 0.75rem;
   display: block;
   font-weight: 600;
-}
-
-.registry-link {
-  color: var(--sage-dark);
-  text-decoration: none;
-  font-size: 0.9rem;
-  word-break: break-all;
-  transition: color 0.2s;
-  font-weight: 500;
-}
-
-.registry-link:hover {
-  color: var(--brown-dark);
-  text-decoration: underline;
 }
 
 .return-btn {
