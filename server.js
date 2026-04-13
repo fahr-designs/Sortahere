@@ -6,9 +6,9 @@ const rateLimit = require("express-rate-limit");
 const { Resend } = require("resend");
 const path = require("path");
 const fs = require("fs");
+const template = require("./email-template");
 
-// 2. CONFIG ─ Read from process.env, populated by dotenv locally, by hPanel in production.
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 const DB_PATH = process.env.DB_PATH;
 const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
@@ -42,6 +42,7 @@ db.exec(`
 
 // ─── 6. EXPRESS APP ──────────────────────────────────────────────────────────
 const app = express();
+app.set("trust proxy", 1); // Trust the first proxy (hPanel's load balancer) for correct client IP detection, needed for rate limiting.
 
 // Parse incoming JSON request bodies and make them available as req.body.
 // Without this, req.body is undefined on POST requests.
@@ -99,7 +100,7 @@ app.post("/admin/send-invites", async (req, res) => {
     return res.status(401).json({ error: "Unauthorized." });
   }
 
-  // 2. Load guests.json — a plain array of email address strings.
+  // 2. Load guests.json 
   let guests;
   try {
     const raw = fs.readFileSync(path.join(__dirname, "guests.json"), "utf8");
@@ -112,9 +113,6 @@ app.post("/admin/send-invites", async (req, res) => {
     console.error("Failed to load guests.json:", err);
     return res.status(500).json({ error: "Could not load guest list." });
   }
-
-  // 3. Load the email template.
-  const template = require("./email-template");
 
   // 4. Send to each guest individually.
   // Loop rather than batch so we get per-address success/failure reporting.

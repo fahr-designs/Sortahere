@@ -1,4 +1,4 @@
- form = document.getElementById('rsvp-form');
+const form = document.getElementById('rsvp-form');
 const submitButton = document.getElementById('submit-btn');
 const errorAlert = document.getElementById('error-alert');
 const attendanceRadios = document.querySelectorAll('input[name="attending"]');
