@@ -519,3 +519,20 @@ body {
     font-size: 0.95rem;
   }
 }
+
+footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.2rem;
+  color: var(--brown-dark);
+}
+
+footer a {
+  color: var(--brown-dark);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
