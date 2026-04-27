@@ -162,9 +162,14 @@ body {
 .fox-topper {
   font-size: 4rem;
   margin-bottom: 0.5rem;
-  display: block;
   filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
   animation: foxBounce 3s ease-in-out infinite;
+}
+
+.fox-topper img {
+  width: 128px;
+  height: auto;
+  margin: 0 auto;
 }
 
 @keyframes foxBounce {
@@ -414,12 +419,12 @@ body {
   width: 100%;
 }
 
-.success-creature {
+/* .success-creature {
   font-size: 5rem;
   display: block;
   margin-bottom: 1.5rem;
   animation: foxBounce 3s ease-in-out infinite;
-}
+} */
 
 .success-title {
   font-family: var(--font-cinzel);
